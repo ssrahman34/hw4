@@ -19,7 +19,7 @@ int findField(char line[1024]); // function declaration
 
 int main(int argc, char** argv){
    // printf("%s %s\n", argv[2], argv[1]);
-    char line[1024]; // current line of file
+    char* line = malloc(1024); // current line of file
     const char* tok; // token pointer
     //char filepathfile[100]= strcat(argv[1],argv[2]);
     //printf("%s", filepathfile);
@@ -33,16 +33,18 @@ int main(int argc, char** argv){
         printf("Error! opening file");
         exit(1); // program exits if file pointer returns NULL
     }
-    if (fgets(line, 1024, fptr) != NULL)
+    //if (fgets(line, 1024, fptr) != NULL)
+    if (fscanf(fptr, "%s", line) == 1)
     {
-	printf("%s", line);
-      //field = findField(line);
+	//printf("%s", line);
+        field = findField(line);
+	//printf("%d", field);
     }//split header to get name column.
     else {
 	printf("This is an empty file!");
     }
    //int field = 8;
-   while (fgets(line, 1024, fptr) != NULL ){ 
+   while (fscanf(fptr, "%s", line) == 1){ 
 	//printf("%s\n",line);
 	//printf("\n");
     //  if(ptr = search(hashCode(getfield(line, field)))){ // check if in hash
@@ -57,12 +59,13 @@ int main(int argc, char** argv){
 }//main
 
 
-int findField(char line[1024]){ // find where name field is
-    char* token;
-    token = strtok(line, " ");
-    for (int i = 0;token != NULL; i++){
-      printf( " %s\n", token );
-      if (strcmp(token,"name") == 0) return i;
+int findField(char* line){ // find where name field is
+    char* token = malloc(100);
+    token = strtok(line, " ,");
+    for (int i = 1;token != NULL; i++){
+      //printf( " %s\n", token );
+      token = strtok(NULL," ,");
+      if ((token!=NULL) && (strcmp(token,"name") == 0)) return ++i;
     }
     return -1; // no name field
 }
