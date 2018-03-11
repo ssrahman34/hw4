@@ -45,7 +45,7 @@ int main(int argc, char** argv){
     }
     if (fscanf(fptr, "%s", line) == 1)
     {
-	getname(line, 8);
+	printf("%s\n",getname(line, 8));
 	}
    char* name = malloc(375);
    while (fscanf(fptr, "%s", line) == 1){ 
@@ -54,9 +54,10 @@ int main(int argc, char** argv){
         //   exit(0);
        // }
    	//printf("%s\n", line);
-//	getname(line, field);
-        //strcpy(name,getname(line, field));
-        //printf("%s", name);
+//getname(line, field);
+  //      strcpy(name,getname(line, field));
+ //printf("%s",getname(line, 8));  
+      //printf("%s", name);
     }	 
 
    fclose(fptr); 
@@ -64,24 +65,25 @@ int main(int argc, char** argv){
 
 char* getname(char* line, int field){
     char* token = malloc(1024);
-printf("INHERE");
-printf("%s %d", line, field);
-    token = strtok(line, " ,");
-    for (int i = 0;i==field; i++){
-printf("INHERE");
-      printf( "New token:      %s\n", token );
-      if((token!=NULL) && i == field){ printf("%s", token);}
-      token = strtok(NULL," ,");
-    }
-    //printf("%s", token);
+    token = strsep(&line, ",");
+    int i = 0;
+    while (token!=NULL){
+      //printf( "New token:      %s index: %d\n", token,i);
+      if(i == field){ 
+	return token;
+      }
+      token = strsep(&line,",");
+	i++;
+}
     return token; // no name field
+
 }
 
 int findField(char* line){ // find where name field is
     char* token = malloc(100);
     token = strtok(line, " ,");
     for (int i = 1;token != NULL; i++){
-      printf( " %s\n", token );
+      //printf( " %s\n", token );
       token = strtok(NULL," ,");
       if ((token!=NULL) && (strcmp(token,"name") == 0)) return ++i;
     }
