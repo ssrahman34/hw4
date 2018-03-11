@@ -9,7 +9,7 @@ struct Freq {
 };
 
 int hashCode(int key);
-
+char* getname(char* line, int field);
 struct DataItem *search(int key);
 
 void insert(struct Freq mostFreq[10], struct Freq* ins);
@@ -43,27 +43,45 @@ int main(int argc, char** argv){
     else {
 	printf("This is an empty file!");
     }
-   //int field = 8;
+    if (fscanf(fptr, "%s", line) == 1)
+    {
+	getname(line, 8);
+	}
+   char* name = malloc(375);
    while (fscanf(fptr, "%s", line) == 1){ 
-	//printf("%s\n",line);
-	//printf("\n");
-    //  if(ptr = search(hashCode(getfield(line, field)))){ // check if in hash
-    //    ptr->count += 1;
-    //  }
-    //	else{
-	  //insert();
-    //	}
-    }
+	//if (strlen(line) > 375){
+        //   printf("We have a tweeter that exceeded the max char size");
+        //   exit(0);
+       // }
+   	//printf("%s\n", line);
+//	getname(line, field);
+        //strcpy(name,getname(line, field));
+        //printf("%s", name);
+    }	 
 
    fclose(fptr); 
 }//main
 
+char* getname(char* line, int field){
+    char* token = malloc(1024);
+printf("INHERE");
+printf("%s %d", line, field);
+    token = strtok(line, " ,");
+    for (int i = 0;i==field; i++){
+printf("INHERE");
+      printf( "New token:      %s\n", token );
+      if((token!=NULL) && i == field){ printf("%s", token);}
+      token = strtok(NULL," ,");
+    }
+    //printf("%s", token);
+    return token; // no name field
+}
 
 int findField(char* line){ // find where name field is
     char* token = malloc(100);
     token = strtok(line, " ,");
     for (int i = 1;token != NULL; i++){
-      //printf( " %s\n", token );
+      printf( " %s\n", token );
       token = strtok(NULL," ,");
       if ((token!=NULL) && (strcmp(token,"name") == 0)) return ++i;
     }
