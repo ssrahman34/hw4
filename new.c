@@ -18,7 +18,7 @@ int findField(char line[1024]); // function declaration
 
 
 int main(int argc, char** argv){
-    printf("%s %s", argv[2], argv[1]);
+   // printf("%s %s\n", argv[2], argv[1]);
     char line[1024]; // current line of file
     const char* tok; // token pointer
     //char filepathfile[100]= strcat(argv[1],argv[2]);
@@ -27,17 +27,24 @@ int main(int argc, char** argv){
     struct Freq* freqArr[4096]; // frequency array
     struct Freq* ptr;
     struct Freq* mostFreq[10]; // holds 10 most freq tweeters
-
+    int field;
     if (!fptr) // open file
     {
         printf("Error! opening file");
         exit(1); // program exits if file pointer returns NULL
     }
-   //int field = findField(line);
-   // int field = 8;
+    if (fgets(line, 1024, fptr) != NULL)
+    {
+	printf("%s", line);
+      //field = findField(line);
+    }//split header to get name column.
+    else {
+	printf("This is an empty file!");
+    }
+   //int field = 8;
    while (fgets(line, 1024, fptr) != NULL ){ 
-	printf("%s\n",line);
-	printf("\n");
+	//printf("%s\n",line);
+	//printf("\n");
     //  if(ptr = search(hashCode(getfield(line, field)))){ // check if in hash
     //    ptr->count += 1;
     //  }
@@ -48,3 +55,14 @@ int main(int argc, char** argv){
 
    fclose(fptr); 
 }//main
+
+
+int findField(char line[1024]){ // find where name field is
+    char* token;
+    token = strtok(line, " ");
+    for (int i = 0;token != NULL; i++){
+      printf( " %s\n", token );
+      if (strcmp(token,"name") == 0) return i;
+    }
+    return -1; // no name field
+}
