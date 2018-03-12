@@ -36,10 +36,11 @@ int main(){
   hash_table[10].count = 20;
   strcpy(hash_table[11].name,"u");
   hash_table[11].count = 21;
+  strcpy(hash_table[12].name,"w");
+  hash_table[12].count = 55;
 
 
-
-  display(hash_table, 12);
+  display(hash_table, 13);
 }
 
 
@@ -48,7 +49,7 @@ void Merge(int *A,int *L,int leftCount,int *R,int rightCount) {
         int j =0;
         int k = 0;
 
-	while(i<leftCount && j< rightCount) {
+	for(int q = 0;i<leftCount && j< rightCount;q++) {
 		if(L[i]  < R[j]) A[k++] = L[i++];
 		else A[k++] = R[j++];
 	}
@@ -56,11 +57,10 @@ void Merge(int *A,int *L,int leftCount,int *R,int rightCount) {
 	while(j < rightCount) A[k++] = R[j++];
 }
 
-// Recursive function to sort an array of integers. 
 void MergeSort(int *A,int n) {
 	int mid,i;
         int *L, *R;
-	if(n < 2) return; // base condition. If the array has less than two element, do nothing. 
+	if(n < 2) return; 
 
 	mid = n/2;  // find the mid index. 
 
