@@ -56,12 +56,11 @@ int main(int argc, char** argv){
 	  printf("%s\n\n\n", line);
 	  printf("\n\n\n\n\nNEWLINE");
 	}
-
-  //getname(line, field);
-  //      strcpy(name,getname(line, field));
-  // printf("%s",getname(line, field));  
-      //printf("%s", name);
-    }	 
+   // getname(line, field);
+   //      strcpy(name,getname(line, field));
+   // printf("%s",getname(line, field));  
+   // printf("%s", name);
+   }	 
 
    fclose(fptr); 
 }//main
@@ -71,7 +70,7 @@ char* getname(char* line, int field){
     token = strsep(&line, ",");
     int i = 0;
     while (token!=NULL){
-      printf( "New token:      %s index: %d\n", token,i);
+      //printf( "New token:      %s index: %d\n", token,i);
       if(i == field){ 
 	return token;
       }
@@ -92,3 +91,6 @@ int findField(char* line){ // find where name field is
     }
     return -1; // no name field
 }
+
+
+
