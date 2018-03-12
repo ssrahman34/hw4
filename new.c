@@ -28,13 +28,14 @@ int main(int argc, char** argv){
     struct Freq* ptr;
     struct Freq* mostFreq[10]; // holds 10 most freq tweeters
     int field;
+	size_t bufsize = 32;
     if (!fptr) // open file
     {
         printf("Error! opening file");
         exit(1); // program exits if file pointer returns NULL
     }
-    //if (fgets(line, 1024, fptr) != NULL)
-    if (fscanf(fptr, "%s", line) == 1)
+    //if (fscanf(fptr, "%s", line) == 1)
+    if(fgets(line, 1024, fptr) != NULL)
     {
 	//printf("%s", line);
         field = findField(line);
@@ -43,20 +44,22 @@ int main(int argc, char** argv){
     else {
 	printf("This is an empty file!");
     }
-    if (fscanf(fptr, "%s", line) == 1)
-    {
-	printf("%s\n",getname(line, 8));
-	}
+   //  if (fscanf(fptr, "%s", line) == 1)
+   //  {
+   //	printf("%s\n",getname(line, field));
+   //	}
    char* name = malloc(375);
-   while (fscanf(fptr, "%s", line) == 1){ 
-	//if (strlen(line) > 375){
-        //   printf("We have a tweeter that exceeded the max char size");
-        //   exit(0);
-       // }
-   	//printf("%s\n", line);
-//getname(line, field);
+   int i = 1;
+   while (fgets(line, 1024, fptr) != NULL){
+	i++;
+	if ( i < 3) {
+	  printf("%s\n\n\n", line);
+	  printf("\n\n\n\n\nNEWLINE");
+	}
+
+  //getname(line, field);
   //      strcpy(name,getname(line, field));
- //printf("%s",getname(line, 8));  
+  // printf("%s",getname(line, field));  
       //printf("%s", name);
     }	 
 
@@ -68,7 +71,7 @@ char* getname(char* line, int field){
     token = strsep(&line, ",");
     int i = 0;
     while (token!=NULL){
-      //printf( "New token:      %s index: %d\n", token,i);
+      printf( "New token:      %s index: %d\n", token,i);
       if(i == field){ 
 	return token;
       }
